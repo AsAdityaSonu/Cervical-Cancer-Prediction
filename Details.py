@@ -2,7 +2,7 @@
 # --------------------------------------------------------------
 DIR = './2-gb'
 classes = ['class 1', 'Class 2', 'Class 3', 'Class 4']
-image_ext = {".jpg"}
+image_ext = {".jpg", ".jpeg"}
 # --------------------------------------------------------------
 import os
 from PIL import Image
@@ -18,7 +18,18 @@ for c in classes:
         print(f"Directory does not exist: {classDir}")
 
 # --------------------------------------------------------------
-# Image size
+# Image format
+for c in classes:
+    classDir = os.path.join(DIR, c)
+    if os.path.exists(classDir):
+        image_files = [f for f in os.listdir(classDir)]
+        for image_file in image_files:
+            with Image.open(os.path.join(classDir, image_file)) as img:
+                print(f"Format of image '{image_file}' in class '{c}': {img.format}")
+    else:
+        print(f"Directory does not exist: {classDir}")
+
+# --------------------------------------------------------------
 # Image size
 for c in classes:
     classDir = os.path.join(DIR, c)
@@ -30,3 +41,4 @@ for c in classes:
                 print(f"Size of image '{image_file}' in class '{c}': {width}x{height}")
     else:
         print(f"Directory does not exist: {classDir}")
+
